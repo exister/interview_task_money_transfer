@@ -29,7 +29,7 @@ SECRET_KEY = 'e36*vq8ti1#4+^7gj@16qfot-o+ffdp4mc4gs+^+c8wc0l589r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'bn_core',
+    'bn_api',
     'bn_users',
     'bn_accounts',
 ]
@@ -136,6 +137,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = env.str('STATIC_ROOT')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 MEDIA_ROOT = env.str('MEDIA_DIR')
 
@@ -146,13 +150,15 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'PAGE_SIZE': 20,
 }
 
 # -------------- JWT SETTINGS -------------- #

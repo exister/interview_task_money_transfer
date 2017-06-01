@@ -6,6 +6,8 @@ services:
     build: ./provisioning/services/postgres
     volumes:
       - pg_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
     networks:
       - back
     env_file:
@@ -29,6 +31,8 @@ services:
   web:
     image: benovate/web:latest
     build: ./src
+    ports:
+      - 8000:8000
     volumes:
       - ./src:/app
       - media_data:/media
@@ -41,7 +45,6 @@ services:
       - back
     env_file:
       - .env
-      - .secrets.env
 
 volumes:
   pg_data:

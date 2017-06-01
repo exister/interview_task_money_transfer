@@ -16,3 +16,10 @@ def inn_validator(value):
     elif inn_length == 12:
         if value[-2:] != inn_csum(value[:-2]) + inn_csum(value[:-1]):
             raise ValidationError('Введен некорректный ИНН')
+
+
+def inn_exists(value):
+    from .models import User
+
+    if not User.objects.filter(inn=value).exists():
+        raise ValidationError('Users with INN {} not found'.format(value))

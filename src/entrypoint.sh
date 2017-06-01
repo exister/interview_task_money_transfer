@@ -22,7 +22,7 @@ if [ "$1" = 'uwsgi' ]; then
     chown -R unprivileged:unprivileged /static
     gosu unprivileged python manage.py collectstatic --noinput
     gosu unprivileged python manage.py migrate --noinput
-#    gosu unprivileged python manage.py safe_load_initial_data
+    gosu unprivileged python manage.py load_initial_data
     exec gosu unprivileged uwsgi --ini /app/uwsgi.ini
 fi
 

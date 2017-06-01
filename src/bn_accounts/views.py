@@ -1,3 +1,5 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
 
-# Create your views here.
+
+class MoneyTransferView(TemplateView):
+    template_name = 'bn_accounts/money_transfer.html'
