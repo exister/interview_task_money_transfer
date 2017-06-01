@@ -1,0 +1,56 @@
+version: '2.1'
+
+services:
+  db:
+    image: benovate/postgres:latest
+    build: ./provisioning/services/postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - back
+    env_file:
+      - .env
+
+  nginx:
+    image: benovate/nginx:latest
+    build: ./provisioning/services/nginx
+    volumes:
+      - 'media_data:/var/www/html/media/:ro'
+      - 'static_data:/var/www/html/static/:ro'
+    ports:
+      - 80:81
+    networks:
+      - front
+    depends_on:
+      - web
+    environment:
+      - WEB_LINK=web:8000
+
+  web:
+    image: benovate/web:latest
+    build: ./src
+    volumes:
+      - ./src:/app
+      - media_data:/media
+      - static_data:/static
+    depends_on:
+      - db
+    command: uwsgi
+    networks:
+      - front
+      - back
+    env_file:
+      - .env
+      - .secrets.env
+
+volumes:
+  pg_data:
+    driver: local
+  media_data:
+    driver: local
+  static_data:
+    driver: local
+
+networks:
+  front:
+  back:

@@ -1,0 +1,43 @@
+.secrets.env
+.ssh_keys
+celerybeat-schedule
+*.retry
+provisioning/terraform/env_develop/.terraform
+provisioning/terraform/env_master/.terraform
+provisioning/files/ssh/id_rsa_overtime_aws_develop
+provisioning/files/ssh/id_rsa_overtime_aws_master
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Basics
+*.py[cod]
+__pycache__
+
+# Logs
+logs
+*.log
+pip-log.txt
+npm-debug.log*
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+htmlcov
+
+# Translations
+*.mo
+*.pot
+
+# Pycharm
+.idea/*
+.pycharm_helpers
+
+# npm
+node_modules/
+
+# Compass
+.sass-cache
